@@ -17,7 +17,7 @@ async def main(x):
     await x
 @bot.message_handler(commands=['start'])
 def bot_start(message):
-    with open(r'c:\Users\Сергей\Desktop\Привет(файл бота не удалять).jpg', 'rb') as hi:
+    with open(r'Привет(файл бота не удалять).jpg', 'rb') as hi:
         bot.send_photo(message.from_user.id,hi, 'Приветствую вас, я бот для отправки сообщений, вот вам краткий гайд по коммандам!\n/msg - позволяет отправить сообщение через опредленное время.\nНапоминаем это ещё ранняя версия этого бота, он будет дорабатываться и неоднакратно, оставить отзыв и пожелания /review ')
 @bot.message_handler(commands=['msg'], content_types=['text'])
 def msg(message):
@@ -27,7 +27,7 @@ def msg(message):
         if user_status == ['ord']:
             pass
         else:
-            with open(r'c:\Users\Сергей\Desktop\Написать читото(файл бота, не удалять).jpg', 'rb') as KIRA:
+            with open(r'Написать читото(файл бота, не удалять).jpg', 'rb') as KIRA:
                 bot.send_photo(message.from_user.id, KIRA, 'Добро пожаловать в мой основной функционал, вот список доступных вам комманд и их описание.\n/sm (send minute) - Отправить сообщение в указанный вами чат через заданное вами количество минут. (Не может превышать лимит: 7200 - 5 дней)\n/sh (send hour) - Отправить сообщение в указанный вами чат, через указанное вами количество часов.(не может превышать: 120 - 5 дней)\n/sd (send day) - Отправить сообщение в указанный вами чат, через определенный день. (не может превышать: 5 - 5 дней)')
             @bot.message_handler(commands=['sm'], content_types=['text'])
             def send_minute(message):
@@ -191,4 +191,5 @@ def rew(message):
     bot.send_message(message.from_user.id, 'Отправьте отзыв или пожелание связанные с ботом, они будут учитываться в следующем обновлении:')
     bot.register_next_step_handler(message, rewuwer)
     
+
 bot.polling(non_stop=False, interval=0,timeout=0)
