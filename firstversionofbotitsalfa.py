@@ -203,7 +203,7 @@ def time_que(message):
 @bot.message_handler(commands=['question'])
 def question_que(message):
     global user_id
-      def step2():
+    def step2():
         user_id = message.from_user.id
         us_text = message.text
         bot.send_message(-1003325379834, us_text + ' ' + user_id)
@@ -212,3 +212,4 @@ def question_que(message):
     bot.send_message(message.from_user.id, 'Задавайте вопрос на который вы не нашли в /guide.')
     bot.register_next_step_handler(message, step2)
 bot.polling(non_stop=False, interval=0,timeout=0)
+
