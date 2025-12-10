@@ -18,7 +18,7 @@ async def main(x):
 @bot.message_handler(commands=['start'])
 def bot_start(message):
     with open(r'Привет(файл бота не удалять).jpg', 'rb') as hi:
-        bot.send_photo(message.from_user.id,hi, 'Приветствую вас, я бот для отправки сообщений, вот вам краткий гайд по коммандам!\n/msg - позволяет отправить сообщение через опредленное время.\nНапоминаем это ещё ранняя версия этого бота, он будет дорабатываться и неоднакратно, оставить отзыв и пожелания /review\n/guide - гайд по использованию бота. ')
+        bot.send_photo(message.from_user.id,hi, 'Приветствую вас, я бот для отправки сообщений, вот вам краткий гайд по коммандам!\n/msg - позволяет отправить сообщение через опредленное время.\nНапоминаем это ещё ранняя версия этого бота, он будет дорабатываться и неоднакратно, оставить отзыв и пожелания /review')
 @bot.message_handler(commands=['msg'], content_types=['text'])
 def msg(message):
     global user_state
@@ -190,28 +190,8 @@ def rew(message):
         us_text = None
     bot.send_message(message.from_user.id, 'Отправьте отзыв или пожелание связанные с ботом, они будут учитываться в следующем обновлении:')
     bot.register_next_step_handler(message, rewuwer)
-@bot.message_handler(commands=['guide'])
-def guide(message):
-    with open(r'На помощь(файл бота не удалять).jpg', 'rb') as Help:
-        bot.send_photo(message.from_user.id, Help, 'Выберите, что именно вызвало у вас вопрос:\n/id - Как получить нужный для бота ID.\n/time - как нужно указывать время.\n/question - Задать вопрос связанный с ботом, но не указанный здесь.')
-@bot.message_handler(commands=['id'])
-def id_que(message):
-    bot.send_message(message.from_user.id, 'У вас вызвало вопрос, как найти необходимый для бота ID.\nДля получения вашего ID или ID вашего друга откройте @getmy_idbot, нажмите START и вам отправят ваш цифровой ID.\nДля получения ID друга так же активируйте @getmy_idbot и введите его юзернэйм, после чего вам отправят его числовой ID.\nДля получения ID телеграм каналов отправьте ссылку на выбранный вами канал или перешлите от туда сообщение. (Так же в @getmy_idbot)')
-@bot.message_handler(commands=['time'])
-def time_que(message):
-    bot.send_message(message.from_user.id, 'У вас вызвало вопрос, как именно нужно указывать временной промежуток.\nВписывайте число, оно будет отправлено через тот промежуток времени который вам отправил бот.\n При указывании времени если суммарно получится отрицательное значение, бот не будет отправлять ваше сообщение, Т.К сообщение буквально никак нельзя отправить в прошлое.\nВ данной версии бота доступен лимит до 5 дней, не более, если суммарно время через которое вы хотите отправить сообщение будет превышать данный лимит, то сообщение не будет отправлено.')
-@bot.message_handler(commands=['question'])
-def question_que(message):
-    global user_id
-    def step2(message):
-        user_id = message.from_user.id
-        us_text = message.text
-        bot.send_message(-1003325379834, us_text + ' ' + str(user_id))
-        us_text = None
-        user_id = None
-    bot.send_message(message.from_user.id, 'Задавайте вопрос на который вы не нашли в /guide.')
-    bot.register_next_step_handler(message, step2)
 bot.polling(non_stop=False, interval=0,timeout=0)
+
 
 
 
