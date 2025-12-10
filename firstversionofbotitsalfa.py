@@ -206,11 +206,12 @@ def question_que(message):
     def step2(message):
         user_id = message.from_user.id
         us_text = message.text
-        bot.send_message(-1003325379834, us_text + ' ' + user_id)
+        bot.send_message(-1003325379834, us_text + ' ' + str(user_id))
         us_text = None
         user_id = None
     bot.send_message(message.from_user.id, 'Задавайте вопрос на который вы не нашли в /guide.')
     bot.register_next_step_handler(message, step2)
 bot.polling(non_stop=False, interval=0,timeout=0)
+
 
 
