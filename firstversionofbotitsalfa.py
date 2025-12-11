@@ -13,12 +13,15 @@ time_message_week = None
 is_msg_send = None
 time_message = None
 user_id = None
+id_user = None
 async def main(x):
     await x
 @bot.message_handler(commands=['start'])
 def bot_start(message):
+    global user_id
     with open(r'Привет(файл бота не удалять).jpg', 'rb') as hi:
         bot.send_photo(message.from_user.id,hi, 'Приветствую вас, я бот для отправки сообщений, вот вам краткий гайд по коммандам!\n/msg - позволяет отправить сообщение через опредленное время.\nНапоминаем это ещё ранняя версия этого бота, он будет дорабатываться и неоднакратно, оставить отзыв и пожелания /review\n/guide - гайд по использованию бота. ')
+        user_id = message.from_user.id
 @bot.message_handler(commands=['msg'], content_types=['text'])
 def msg(message):
     global user_state
@@ -200,16 +203,34 @@ def id_que(message):
 @bot.message_handler(commands=['time'])
 def time_que(message):
     bot.send_message(message.from_user.id, 'У вас вызвало вопрос, как именно нужно указывать временной промежуток.\nВписывайте число, оно будет отправлено через тот промежуток времени который вам отправил бот.\n При указывании времени если суммарно получится отрицательное значение, бот не будет отправлять ваше сообщение, Т.К сообщение буквально никак нельзя отправить в прошлое.\nВ данной версии бота доступен лимит до 5 дней, не более, если суммарно время через которое вы хотите отправить сообщение будет превышать данный лимит, то сообщение не будет отправлено.')
-@bot.message_handler(commads=['question'])
+@bot.message_handler(commands=['question'])
 def question_que(message):
     global user_id
-    bot.send_message(message.from_user.id, 'Задавайте вопрос на который вы не нашли в /guide.')
-    
-    bot.register_next_step_handler(message, step2)
     def step2():
         user_id = message.from_user.id
         us_text = message.text
-        bot.send_message(-1003325379834, us_text + ' ' + user_id)
+        bot.send_message(-1003325379834, us_text + ' ' + str(user_id))
         us_text = None
+        user_id = None
+    bot.send_message(message.from_user.id, 'Задавайте вопрос на который вы не нашли в /guide.')
+    bot.register_next_step_handler(message, step2)
+@bot.message_handler(commands=['answer'])
+def answer(message):
+    global user_id
+    if message.from_user.id == 6541194267:
+        def answeriy(message):
+            global id_user
+            def idshka(message):
+                id_user = message.text
+                bot.send_message('Укажи ответник ебланчику')
+                bot.register_next_step_handler(message, answeri)
+            def answeri(message):
+                text_message = message.text
+                bot.send_message(id_user, text_message)
+                text_message=None
+                id_user=None
+            bot.send_message(message.from_user.id, 'Укажи ID ебланчика')
+            bot.register_next_step_handler(message, idshka)
+    else:
         user_id = None
 bot.polling(non_stop=False, interval=0,timeout=0)
