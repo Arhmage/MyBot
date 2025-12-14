@@ -217,5 +217,5 @@ def reklama(message):
         with open(r'reklamka.jpg', 'rb') as r:
             bot.send_photo(message.from_user.id, r, 'Чтобы не пропускать обновления этого бота, подпишитесь на телеграм канал в котором сообщается о выходе обновлений,  а так же, что они в себя включают.\n\n@Coderupoka @Coderupoka @Coderupoka\n\nА так же вы можете получить шанс на розыгрыш промокодов, подарков и прочего, залетайте.')
         return reklama
-    asyncio.run(main(reklamich()))
+    asyncio.run(main(reklamich(message)))
 bot.polling(non_stop=False, interval=0,timeout=0)
