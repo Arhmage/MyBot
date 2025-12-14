@@ -210,12 +210,4 @@ def question_que(message):
         user_id = None
     bot.send_message(message.from_user.id, 'Задавайте вопрос на который вы не нашли в /guide.')
     bot.register_next_step_handler(message, step2)
-@bot.message_handler()
-def reklama(message):
-    async def reklamich(message):
-        await asyncio.sleep(86400)
-        with open(r'reklamka.jpg', 'rb') as r:
-            bot.send_photo(message.from_user.id, r, 'Чтобы не пропускать обновления этого бота, подпишитесь на телеграм канал в котором сообщается о выходе обновлений,  а так же, что они в себя включают.\n\n@Coderupoka @Coderupoka @Coderupoka\n\nА так же вы можете получить шанс на розыгрыш промокодов, подарков и прочего, залетайте.')
-        return reklama
-    asyncio.run(main(reklamich(message)))
 bot.polling(non_stop=False, interval=0,timeout=0)
