@@ -12,16 +12,12 @@ time_message_day = None
 time_message_week = None
 is_msg_send = None
 time_message = None
-user_id = None
-id_user = None
 async def main(x):
     await x
 @bot.message_handler(commands=['start'])
 def bot_start(message):
-    global user_id
     with open(r'Привет(файл бота не удалять).jpg', 'rb') as hi:
         bot.send_photo(message.from_user.id,hi, 'Приветствую вас, я бот для отправки сообщений, вот вам краткий гайд по коммандам!\n/msg - позволяет отправить сообщение через опредленное время.\nНапоминаем это ещё ранняя версия этого бота, он будет дорабатываться и неоднакратно, оставить отзыв и пожелания /review\n/guide - гайд по использованию бота. ')
-        user_id = message.from_user.id
 @bot.message_handler(commands=['msg'], content_types=['text'])
 def msg(message):
     global user_state
@@ -55,7 +51,7 @@ def msg(message):
                         global time_message_minute, time_message, chat_id, text_send, is_msg_send
                         time_message = time_message_minute * 60
                         if time_message > 432000:
-                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на дней вперед, для увеличения лимита - купите премиум подписку /prem')
+                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед.')
                         elif time_message < 0:
                             bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение в прошлое.')
                         else:
@@ -71,7 +67,7 @@ def msg(message):
                             text_send = None
                             is_msg_send = None
                             time_message = None
-                    bot.send_message(message.from_user.id, 'Пожалуйста, введите ID чата или ссылку на чат, в который вы хотите отправить сообщение:')
+                    bot.send_message(message.from_user.id, 'Пожалуйста, введите цифровой ID чата (Как получить цифровой ID /id), в который вы хотите отправить сообщение:')
                     bot.register_next_step_handler(message, sid)
             @bot.message_handler(commands=['sh'], content_types=['text'])
             def send_hour(message):
@@ -91,7 +87,7 @@ def msg(message):
                         global time_message_hour
                         time_message_hour = int(message.text)
                         if time_message_hour > 120:
-                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед, для увеличения лимита - купите премиум подписку /prem')
+                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед.')
                         elif time_message_hour < 0:
                             bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение в прошлое.')
                         else:
@@ -105,7 +101,7 @@ def msg(message):
                         global time_message_minute, chat_id, text_send, is_msg_send, time_message
                         time_message = (time_message_hour * 3600) + (time_message_minute * 60)
                         if time_message > 432000:
-                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед, для увеличения лимита - купите премиум подписку /prem')
+                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед.')
                         elif time_message < 0:
                             bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение в прошлое.')
                         else:
@@ -122,7 +118,7 @@ def msg(message):
                             is_msg_send = None
                             time_message = None
                             time_message_hour = None
-                    bot.send_message(message.from_user.id, 'Пожалуйста, введите ID чата в который вы хотите отправить сообщение')
+                    bot.send_message(message.from_user.id, 'Пожалуйста, введите цифровой ID чата (Как получить цифровой ID /id) ,в который вы хотите отправить сообщение ()')
                     bot.register_next_step_handler(message, sid)
             @bot.message_handler(commands=['sd'], content_types=['text'])
             def send_day(message):
@@ -141,7 +137,7 @@ def msg(message):
                         global time_message_day
                         time_message_day = int(message.text)
                         if time_message_day > 5:
-                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед, для увеличения лимита - купите премиум подписку /prem')
+                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед.')
                         elif time_message_day < 0:
                             bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение в прошлое.')
                         else:
@@ -152,7 +148,7 @@ def msg(message):
                         time_message_hour = int(message.text)
                         th = (time_message_day * 24) + time_message_hour
                         if th > 120:
-                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед, для увеличения лимита - купите премиум подписку /prem')
+                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед.')
                         elif th < 0:
                             bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение в прошлое.')
                         else:
@@ -166,7 +162,7 @@ def msg(message):
                         global time_message_minute, chat_id, text_send, is_msg_send, time_message, time_message_day
                         time_message = (time_message_day*86400)+(time_message_hour * 3600) + (time_message_minute * 60) 
                         if time_message > 432000:
-                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед, для увеличения лимита - купите премиум подписку /prem')
+                            bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение более чем на 5 дней вперед.')
                         elif time_message < 0:
                             bot.send_message(message.from_user.id, 'Вы не можете отправить сообщение в прошлое.')
                         else:
@@ -183,7 +179,7 @@ def msg(message):
                             is_msg_send = None
                             time_message = None
                             time_message_hour = None
-                bot.send_message(message.from_user.id, 'Отправьте ID чата, в который вы хотите отправить сообщение:')
+                bot.send_message(message.from_user.id, 'Пожалуйста, отправьте цифровой ID чата (Как получить цифровой ID /id), в который вы хотите отправить сообщение:')
                 bot.register_next_step_handler(message,sid)
 @bot.message_handler(commands=['review'], content_types = ['text'])
 def rew(message):
@@ -214,23 +210,12 @@ def question_que(message):
         user_id = None
     bot.send_message(message.from_user.id, 'Задавайте вопрос на который вы не нашли в /guide.')
     bot.register_next_step_handler(message, step2)
-@bot.message_handler(commands=['answer'])
-def answer(message):
-    global user_id
-    if message.from_user.id == 6541194267:
-        def answeriy(message):
-            global id_user
-            def idshka(message):
-                id_user = message.text
-                bot.send_message('Укажи ответник ебланчику')
-                bot.register_next_step_handler(message, answeri)
-            def answeri(message):
-                text_message = message.text
-                bot.send_message(id_user, text_message)
-                text_message=None
-                id_user=None
-            bot.send_message(message.from_user.id, 'Укажи ID ебланчика')
-            bot.register_next_step_handler(message, idshka)
-    else:
-        user_id = None
+@bot.message_handler()
+def reklama(message):
+    async def reklamich(message):
+        await asyncio.sleep(86400)
+        with open(r'reklamka.jpg', 'rb') as r:
+            bot.send_photo(message.from_user.id, r, 'Чтобы не пропускать обновления этого бота, подпишитесь на телеграм канал в котором сообщается о выходе обновлений,  а так же, что они в себя включают.\n\n@Coderupoka @Coderupoka @Coderupoka\n\nА так же вы можете получить шанс на розыгрыш промокодов, подарков и прочего, залетайте.')
+        return reklama
+    asyncio.run(main(reklamich()))
 bot.polling(non_stop=False, interval=0,timeout=0)
