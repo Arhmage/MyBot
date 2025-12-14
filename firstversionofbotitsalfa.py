@@ -67,7 +67,7 @@ def msg(message):
                             text_send = None
                             is_msg_send = None
                             time_message = None
-                    bot.send_message(message.from_user.id, 'Пожалуйста, введите цифровой ID чата (Как получить цифровой ID /id), в который вы хотите отправить сообщение:')
+                    bot.send_message(message.from_user.id, 'Пожалуйста, введите цифровой ID чата, в который вы хотите отправить сообщение:')
                     bot.register_next_step_handler(message, sid)
             @bot.message_handler(commands=['sh'], content_types=['text'])
             def send_hour(message):
@@ -118,7 +118,7 @@ def msg(message):
                             is_msg_send = None
                             time_message = None
                             time_message_hour = None
-                    bot.send_message(message.from_user.id, 'Пожалуйста, введите цифровой ID чата (Как получить цифровой ID /id) ,в который вы хотите отправить сообщение ()')
+                    bot.send_message(message.from_user.id, 'Пожалуйста, введите цифровой ID чата,в который вы хотите отправить сообщение ()')
                     bot.register_next_step_handler(message, sid)
             @bot.message_handler(commands=['sd'], content_types=['text'])
             def send_day(message):
@@ -179,7 +179,7 @@ def msg(message):
                             is_msg_send = None
                             time_message = None
                             time_message_hour = None
-                bot.send_message(message.from_user.id, 'Пожалуйста, отправьте цифровой ID чата (Как получить цифровой ID /id), в который вы хотите отправить сообщение:')
+                bot.send_message(message.from_user.id, 'Пожалуйста, отправьте цифровой ID чата, в который вы хотите отправить сообщение:')
                 bot.register_next_step_handler(message,sid)
 @bot.message_handler(commands=['review'], content_types = ['text'])
 def rew(message):
